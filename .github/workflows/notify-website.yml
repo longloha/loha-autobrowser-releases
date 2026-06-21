@@ -1,0 +1,12 @@
+name: Notify lohatech.vn on release
+on:
+  release:
+    types: [published]
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping lohatech.vn revalidate endpoint
+        run: |
+          curl -fsS -X POST "https://lohatech.vn/api/revalidate-releases" \
+            -H "Authorization: Bearer ${{ secrets.REVALIDATE_SECRET }}"
